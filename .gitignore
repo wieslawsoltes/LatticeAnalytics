@@ -1,6 +1,7 @@
 node_modules/
 _site/
-.playwright/
-__pycache__/
-*.pyc
 .DS_Store
+*.log
+__pycache__/
+.venv/
+playwright-report/

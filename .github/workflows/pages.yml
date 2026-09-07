@@ -1,6 +1,8 @@
 name: Test and deploy Lattice Analytics
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -13,13 +15,55 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    # One-time permission for committing the verified source import.
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
         with:
           node-version: '22'
-      - run: npm test
-      - run: npm run build:pages
+      - name: Restore checksum-verified source package
+        if: hashFiles('.bootstrap/restore.mjs') != ''
+        run: node .bootstrap/restore.mjs
+      - name: Run engine and model tests
+        run: npm test | tee test-results/unit-tests.txt
+      - name: Build standalone application, sample workbook, and Pages site
+        run: npm run build:pages
+      - name: Verify reproducibility against delivered application
+        run: |
+          echo 'b8bf1e6b70e782896ccb14c642d661b79247b449be8a7b9be4e64f11a29a8f6f  dist/lattice.html' | sha256sum --check
+          echo '069cd7d050b85382d6e9e5955c12f138a7daacd3778241f975623a0ed36841bf  examples/commerce.lattice' | sha256sum --check
+      - name: Commit complete runnable source and remove transfer files
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          rm -rf .bootstrap
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m 'Add complete Lattice Analytics source, tests, build tools, and sample workbook'
+            git push origin HEAD:main
+          fi
+      - name: Install browser test dependencies
+        run: |
+          python3 -m pip install --disable-pip-version-check playwright==1.57.0
+          python3 -m playwright install --with-deps chromium
+      - name: Verify browser workflows and 100,000-mark rendering
+        run: |
+          BROWSER="$(python3 -c 'from playwright.sync_api import sync_playwright; p=sync_playwright().start(); print(p.chromium.executable_path); p.stop()')"
+          python3 tests/browser_smoke.py --offline --browser "$BROWSER" | tee test-results/browser-smoke-output.txt
+          sudo ln -sf "$BROWSER" /usr/bin/chromium
+          python3 tests/browser_stress.py | tee test-results/browser-stress-output.txt
+          node --input-type=module -e "import fs from 'node:fs'; import assert from 'node:assert/strict'; const r=JSON.parse(fs.readFileSync('test-results/stress-report.json','utf8')); assert.equal(r.marks,100000); assert.deepEqual(r.pageErrors,[]);"
+      - name: Commit verified browser reports and screenshots
+        run: |
+          git add test-results
+          if ! git diff --cached --quiet; then
+            git commit -m 'Record passing browser workflows and dense-data rendering verification'
+            git push origin HEAD:main
+          fi
+          GITHUB_SHA="$(git rev-parse HEAD)" node tools/pages.mjs
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:
@@ -27,6 +71,7 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
       pages: write
       id-token: write
