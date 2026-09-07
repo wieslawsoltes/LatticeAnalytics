@@ -29,7 +29,7 @@
   "count": 25,
   "mode": "offline embedded Canvas2D + classic Worker",
   "renderer": "Canvas2D",
-  "browser": "144.0.7559.96",
+  "browser": "143.0.7499.4",
   "pageErrors": [],
   "consoleErrors": [],
   "indexedDBVerified": false,

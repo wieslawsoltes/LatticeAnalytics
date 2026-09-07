@@ -8,11 +8,11 @@
     "totalMarks": 100000,
     "returned": 100000,
     "truncated": false,
-    "elapsed": 37.299999999813735,
+    "elapsed": 57.30000000000291,
     "mode": "full",
     "columnBytes": 10913956
   },
-  "generationThroughModelSeconds": 0.917,
+  "generationThroughModelSeconds": 1.057,
   "mode": "Canvas2D",
   "hardwareWebGPUVerified": false,
   "pageErrors": []
