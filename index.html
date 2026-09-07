@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#252a3e"><meta name="description" content="Lattice Analytics — local-first visual analytics, powered by a columnar query engine and WebGPU.">
+  <title>Lattice Analytics — Commerce workbook</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='11' fill='%237561d4'/%3E%3Cpath d='M11 10v20h19M18 10v13h12M25 10v6h5' fill='none' stroke='white' stroke-width='3'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Lattice home"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 6v20h20M14 6v13h13M21 6v6h6"/></svg><span>lattice<span class="brand-dot">.</span></span><small>ANALYTICS</small></a>
+      <div class="workbook-title"><span id="workbook-name">Commerce workbook</span><span class="title-chevron">⌄</span><span id="saved-indicator">Saved locally</span></div>
+      <div class="header-actions"><span class="local-badge"><i></i> Local workspace</span><button id="help-button" class="header-help" title="Help and keyboard shortcuts">?</button><span class="avatar">LA</span></div>
+    </header>
+    <nav class="menubar" aria-label="Application menu">
+      <button data-menu="file">File</button><button data-menu="data">Data</button><button data-menu="worksheet">Worksheet</button><button data-menu="dashboard">Dashboard</button><button data-action="analysis">Analysis</button><button data-action="format">Format</button><button data-action="help">Help</button>
+      <span class="menubar-right"><span class="live-dot"></span> Live connection <span class="menu-separator">|</span> <span id="source-caption">Retail transactions</span></span>
+    </nav>
+    <div class="toolbar" role="toolbar" aria-label="Workbook tools">
+      <div class="tool-group"><button data-action="undo" id="undo-button" title="Undo (Ctrl/⌘ Z)" aria-label="Undo"></button><button data-action="redo" id="redo-button" title="Redo (Ctrl/⌘ Shift Z)" aria-label="Redo"></button></div>
+      <div class="tool-group"><button data-action="save" title="Save locally (Ctrl/⌘ S)" aria-label="Save"></button><button class="tool-label" data-action="import" title="Import CSV or JSON"><span data-icon="database"></span>Connect data<span class="tiny-chevron">⌄</span></button></div>
+      <div class="tool-group"><button data-action="new-sheet" title="New worksheet" aria-label="New worksheet"></button><button data-action="duplicate-sheet" title="Duplicate worksheet" aria-label="Duplicate worksheet"></button><button data-action="clear-sheet" title="Clear worksheet" aria-label="Clear worksheet"></button></div>
+      <div class="tool-group"><button data-action="swap" title="Swap rows and columns" aria-label="Swap rows and columns"></button><button data-action="sort-asc" title="Sort ascending" aria-label="Sort ascending"></button><button data-action="sort-desc" title="Sort descending" aria-label="Sort descending"></button></div>
+      <div class="tool-group toolbar-secondary"><button data-action="calculation" title="Create calculated field" class="calculation-tool">ƒx</button><button data-action="group" title="Create group" aria-label="Create group"></button><button data-action="join" title="Join data sources" aria-label="Join data sources"></button></div>
+      <div class="tool-group toolbar-secondary"><select id="fit-mode" title="View sizing"><option value="entire">Entire view</option><option value="wide">Presentation width</option><option value="compact">Compact view</option></select></div>
+      <div class="toolbar-spacer"></div><button class="tool-label export-tool" data-action="export"><span data-icon="export"></span>Export</button><button id="show-me-toggle" class="show-me-toggle" data-action="toggle-show-me"><span data-icon="grid"></span>Show Me</button>
+    </div>
+    <main class="workspace">
+      <aside class="data-pane" aria-label="Data pane">
+        <div class="pane-tabs"><button class="active" data-action="data-tab">Data</button><button data-action="analytics-tab">Analytics</button><button data-action="import" class="pane-add" title="Add data source">+</button></div>
+        <div class="source-picker"><span data-icon="database"></span><select id="source-select" aria-label="Active data source"></select><span class="source-check">✓</span></div>
+        <div class="source-meta"><span id="source-row-count">— rows</span><button data-action="preview" title="Preview data">View data <span>↗</span></button></div>
+        <div class="field-search"><span data-icon="search"></span><input id="field-search" placeholder="Find a field" aria-label="Search fields"><span>⌕</span></div>
+        <div id="field-list" class="field-list"></div>
+        <div class="data-pane-footer"><button data-action="calculation"><b>ƒx</b> Create calculated field</button><div><i></i><span id="storage-info">Columnar extract</span><button data-action="source-info" title="Data source information">ⓘ</button></div></div>
+      </aside>
+      <section class="center-workspace" id="center-workspace">
+        <div id="workspace-content"></div>
+      </section>
+      <aside class="right-pane" id="right-pane" aria-label="Visualization options"></aside>
+    </main>
+    <footer class="sheet-bar"><button class="data-source-tab" data-action="data-source"><span data-icon="database"></span>Data Source</button><div class="sheet-tabs" id="sheet-tabs"></div><button class="add-sheet-tab" data-action="new-sheet" title="New worksheet">+</button><button class="add-dashboard-tab" data-action="new-dashboard" title="New dashboard"><span data-icon="dashboard"></span><small>+</small></button></footer>
+    <div class="statusbar"><div><span id="status-marks">Ready</span><span class="status-divider">|</span><span id="status-rows">Loading data…</span></div><div><span id="query-status"></span><span class="status-divider">|</span><span class="engine-badge" id="engine-badge"><i></i> Initializing renderer</span><button data-action="analysis" title="Inspect query plan">Query plan <span>↗</span></button></div></div>
+  </div>
+  <input type="file" id="data-file-input" accept=".csv,.tsv,.json,text/csv,application/json" multiple hidden>
+  <input type="file" id="workbook-file-input" accept=".lattice,.json,application/json" hidden>
+  <input type="file" id="append-file-input" accept=".csv,.tsv,.json" hidden>
+  <div id="menu-root"></div><div id="toast-stack" aria-live="polite"></div>
+  <dialog id="modal"><form method="dialog" id="modal-form"><div class="modal-header"><div><div id="modal-eyebrow">LATTICE ANALYTICS</div><h2 id="modal-title"></h2></div><button type="button" id="modal-close" aria-label="Close dialog">×</button></div><div id="modal-body"></div><div class="modal-footer" id="modal-footer"></div></form></dialog>
+  <div class="boot-screen" id="boot-screen"><div class="boot-mark">L</div><h1>Your next insight starts here.</h1><p>Preparing the local analytics engine…</p><div class="boot-progress"></div></div>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>

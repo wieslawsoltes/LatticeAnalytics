@@ -1,0 +1,22 @@
+[
+  {
+    "Region": "West",
+    "Account lead": "Alex Morgan",
+    "Annual target": 1250000
+  },
+  {
+    "Region": "East",
+    "Account lead": "Sam Chen",
+    "Annual target": 1150000
+  },
+  {
+    "Region": "Central",
+    "Account lead": "Jordan Ellis",
+    "Annual target": 1050000
+  },
+  {
+    "Region": "South",
+    "Account lead": "Riley Park",
+    "Annual target": 1100000
+  }
+]

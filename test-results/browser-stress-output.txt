@@ -1,0 +1,19 @@
+{
+  "rows": 100000,
+  "marks": 100000,
+  "queryStats": {
+    "sourceRows": 100000,
+    "matchedRows": 100000,
+    "scannedRows": 100000,
+    "totalMarks": 100000,
+    "returned": 100000,
+    "truncated": false,
+    "elapsed": 37.299999999813735,
+    "mode": "full",
+    "columnBytes": 10913956
+  },
+  "generationThroughModelSeconds": 0.917,
+  "mode": "Canvas2D",
+  "hardwareWebGPUVerified": false,
+  "pageErrors": []
+}

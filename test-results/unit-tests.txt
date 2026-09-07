@@ -1,0 +1,194 @@
+
+> lattice-analytics@1.0.0 test
+> node --test tests/*.test.mjs
+
+TAP version 13
+# Subtest: RFC4180: commas, escaped quotes, BOM, newline, CRLF and trailing fields
+ok 1 - RFC4180: commas, escaped quotes, BOM, newline, CRLF and trailing fields
+  ---
+  duration_ms: 2.543253
+  type: 'test'
+  ...
+# Subtest: CSV rejects malformed and duplicate headers
+ok 2 - CSV rejects malformed and duplicate headers
+  ---
+  duration_ms: 0.511146
+  type: 'test'
+  ...
+# Subtest: JSON flattens nested cell values
+ok 3 - JSON flattens nested cell values
+  ---
+  duration_ms: 0.318831
+  type: 'test'
+  ...
+# Subtest: columnar encoding preserves identifiers, nulls, booleans and ISO dates
+ok 4 - columnar encoding preserves identifiers, nulls, booleans and ISO dates
+  ---
+  duration_ms: 1.108149
+  type: 'test'
+  ...
+# Subtest: SUM AVG COUNT group and sort real rows; null aggregates
+ok 5 - SUM AVG COUNT group and sort real rows; null aggregates
+  ---
+  duration_ms: 11.335301
+  type: 'test'
+  ...
+# Subtest: cache hit scans zero; append scans exactly the new rows
+ok 6 - cache hit scans zero; append scans exactly the new rows
+  ---
+  duration_ms: 1.95326
+  type: 'test'
+  ...
+# Subtest: filters and linked OR/AND tuple selections
+ok 7 - filters and linked OR/AND tuple selections
+  ---
+  duration_ms: 0.594409
+  type: 'test'
+  ...
+# Subtest: typed expressions, IF, date funcs, comparisons, null propagation and divide-by-zero
+ok 8 - typed expressions, IF, date funcs, comparisons, null propagation and divide-by-zero
+  ---
+  duration_ms: 1.810449
+  type: 'test'
+  ...
+# Subtest: typed compiler rejects unknown fields, functions, injection and mixed arithmetic
+ok 9 - typed compiler rejects unknown fields, functions, injection and mixed arithmetic
+  ---
+  duration_ms: 0.584064
+  type: 'test'
+  ...
+# Subtest: computed columns are materialized, incremental, reversible and transactional
+ok 10 - computed columns are materialized, incremental, reversible and transactional
+  ---
+  duration_ms: 1.041571
+  type: 'test'
+  ...
+# Subtest: grouping persists original members for ungrouped rows
+ok 11 - grouping persists original members for ungrouped rows
+  ---
+  duration_ms: 0.374655
+  type: 'test'
+  ...
+# Subtest: left and full hash join preserve duplicate matches and do not equate NULL keys
+ok 12 - left and full hash join preserve duplicate matches and do not equate NULL keys
+  ---
+  duration_ms: 1.010195
+  type: 'test'
+  ...
+# Subtest: join supports composite keys and type diagnostics
+ok 13 - join supports composite keys and type diagnostics
+  ---
+  duration_ms: 0.37873
+  type: 'test'
+  ...
+# Subtest: failed append has atomic row count and data
+ok 14 - failed append has atomic row count and data
+  ---
+  duration_ms: 0.185194
+  type: 'test'
+  ...
+# Subtest: raw projections, stable sorting, limit and stdev/countd
+ok 15 - raw projections, stable sorting, limit and stdev/countd
+  ---
+  duration_ms: 0.383137
+  type: 'test'
+  ...
+# Subtest: empty aggregate has SQL-style null SUM and zero COUNT
+ok 16 - empty aggregate has SQL-style null SUM and zero COUNT
+  ---
+  duration_ms: 0.28364
+  type: 'test'
+  ...
+# Subtest: round-trip snapshots preserve schema and calculations
+ok 17 - round-trip snapshots preserve schema and calculations
+  ---
+  duration_ms: 0.627369
+  type: 'test'
+  ...
+# Subtest: sample results are derived reproducibly from generated transactions
+ok 18 - sample results are derived reproducibly from generated transactions
+  ---
+  duration_ms: 16.732997
+  type: 'test'
+  ...
+# Subtest: delimiter detection ignores punctuation inside quoted headers
+ok 19 - delimiter detection ignores punctuation inside quoted headers
+  ---
+  duration_ms: 0.212304
+  type: 'test'
+  ...
+# Subtest: query cache evicts least-recently-used entries while preserving results
+ok 20 - query cache evicts least-recently-used entries while preserving results
+  ---
+  duration_ms: 0.315157
+  type: 'test'
+  ...
+# Subtest: estimated cache budget evicts oversized raw projections
+ok 21 - estimated cache budget evicts oversized raw projections
+  ---
+  duration_ms: 0.210311
+  type: 'test'
+  ...
+# Subtest: default workbook has four executable visual queries
+ok 22 - default workbook has four executable visual queries
+  ---
+  duration_ms: 483.627793
+  type: 'test'
+  ...
+# Subtest: scatter projects individual rows rather than silently aggregating
+ok 23 - scatter projects individual rows rather than silently aggregating
+  ---
+  duration_ms: 4.960168
+  type: 'test'
+  ...
+# Subtest: heatmap groups two discrete axes and an aggregate color channel
+ok 24 - heatmap groups two discrete axes and an aggregate color channel
+  ---
+  duration_ms: 5.452978
+  type: 'test'
+  ...
+# Subtest: numeric color is converted into a real continuous color scale
+ok 25 - numeric color is converted into a real continuous color scale
+  ---
+  duration_ms: 3.054039
+  type: 'test'
+  ...
+# Subtest: multiple measures create additional visible series, not ignored pills
+ok 26 - multiple measures create additional visible series, not ignored pills
+  ---
+  duration_ms: 2.124704
+  type: 'test'
+  ...
+# Subtest: source-view selections filter linked views but never their origin
+ok 27 - source-view selections filter linked views but never their origin
+  ---
+  duration_ms: 2.455243
+  type: 'test'
+  ...
+# Subtest: empty shelves do not invent a visualization
+ok 28 - empty shelves do not invent a visualization
+  ---
+  duration_ms: 1.648148
+  type: 'test'
+  ...
+# Subtest: history snapshots metadata, supports redo, and does not alias nested arrays
+ok 29 - history snapshots metadata, supports redo, and does not alias nested arrays
+  ---
+  duration_ms: 1.494592
+  type: 'test'
+  ...
+# Subtest: workbook validation rejects invalid references and tile geometry
+ok 30 - workbook validation rejects invalid references and tile geometry
+  ---
+  duration_ms: 2.154637
+  type: 'test'
+  ...
+1..30
+# tests 30
+# suites 0
+# pass 30
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 587.782286

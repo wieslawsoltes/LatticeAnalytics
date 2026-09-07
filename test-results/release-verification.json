@@ -1,0 +1,20 @@
+{
+  "name": "Lattice Analytics",
+  "version": "1.0.0",
+  "verificationDate": "2026-09-06",
+  "unitTests": {
+    "passed": 30,
+    "failed": 0
+  },
+  "browserWorkflowChecks": {
+    "passed": 25,
+    "failed": 0
+  },
+  "denseScatterRows": 100000,
+  "denseScatterMarks": 100000,
+  "browserRendererTested": "Canvas2D",
+  "webgpuRuntimeTested": false,
+  "indexedDBReloadTested": false,
+  "portableWorkbookRoundTripTested": true,
+  "standaloneHtmlSha256": "b8bf1e6b70e782896ccb14c642d661b79247b449be8a7b9be4e64f11a29a8f6f"
+}

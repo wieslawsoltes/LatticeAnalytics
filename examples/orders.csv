@@ -1,0 +1,7 @@
+Region,Category,Sales,Profit,Order Date
+West,Hardware,100,20,2025-01-01
+East,Software,200,70,2025-01-02
+West,Hardware,50,-5,2025-01-03
+Central,Services,80,30,2025-01-04
+South,Software,70,15,2025-01-05
+West,Services,40,12,2025-01-06
